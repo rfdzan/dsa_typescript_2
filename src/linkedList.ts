@@ -1,10 +1,12 @@
+type NextNodeType<T> = Node<T> | null | undefined;
+
 class LinkedList<T> {
   firstNode: Node<T> 
   constructor(node: Node<T>) {
     this.firstNode = node
   }
   read(index: number): T | undefined {
-    let currentNode: Node<T> | null | undefined = this.firstNode;
+    let currentNode: NextNodeType<T> = this.firstNode;
     let currentIndex = 0;
     while (currentIndex < index) {
       if (currentNode == null) {
@@ -16,7 +18,7 @@ class LinkedList<T> {
     return currentNode?.content
   }
   indexOf(needle: T): number | null {
-    let currentNode: Node<T> | null | undefined = this.firstNode;
+    let currentNode: NextNodeType<T> = this.firstNode;
     let currentIndex = 0;
     while (true) {
       if (currentNode?.content === needle) {
@@ -37,7 +39,7 @@ class LinkedList<T> {
       this.firstNode = newNode;
       return;
     }
-    let currentNode: Node<T> | null | undefined = this.firstNode;
+    let currentNode: NextNodeType<T> = this.firstNode;
     let currentIndex = 0;
     // going through the linked list to reach position
     // right before the requested index
@@ -54,7 +56,7 @@ class LinkedList<T> {
 }
 class Node<T> {
   data: T
-  nextNode: Node<T> | null | undefined
+  nextNode: NextNodeType<T>
   constructor(data: T) {
     this.data = data;
     this.nextNode = null
@@ -70,7 +72,7 @@ function main() {
   let stringArr = ["once", "upon", "a", "time"];
   let nodeArr: Node<string>[] = [];
   stringArr.forEach((str) => nodeArr.push(new Node(str)));
-  // this for block mutates nodeArr
+  // this for block mutates members of nodeArr
   for (const [idx, node] of nodeArr.entries()) {
     if (idx === nodeArr.length - 1) {
       break;
