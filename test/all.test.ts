@@ -18,7 +18,7 @@ test('Tests Linked List', () => {
     if (idx === nodeArr.length - 1) {
       break;
     } 
-    node.addNode(nodeArr[idx + 1]);
+    node.addNextNode(nodeArr[idx + 1]);
   }
   let firstNode = nodeArr[0];
   let linkedList = new LinkedList(firstNode);

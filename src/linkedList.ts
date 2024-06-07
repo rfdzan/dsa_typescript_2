@@ -1,13 +1,13 @@
 export {LinkedList, Node};
-type NextNodeType<T> = Node<T> | null | undefined;
+type NodeType<T> = Node<T> | null | undefined;
 
 class LinkedList<T> {
-  firstNode: NextNodeType<T>
+  firstNode: NodeType<T>
   constructor(node: Node<T>) {
     this.firstNode = node
   }
   read(index: number): T | undefined {
-    let currentNode: NextNodeType<T> = this.firstNode;
+    let currentNode: NodeType<T> = this.firstNode;
     let currentIndex = 0;
     // this is how a typical iteration through all nodes will look like.
     // we keep track of two things:
@@ -23,7 +23,7 @@ class LinkedList<T> {
     return currentNode?.content
   }
   indexOf(needle: T): number | null {
-    let currentNode: NextNodeType<T> = this.firstNode;
+    let currentNode: NodeType<T> = this.firstNode;
     let currentIndex = 0;
     while (true) {
       if (currentNode?.content === needle) {
@@ -40,11 +40,11 @@ class LinkedList<T> {
     let newNode = new Node(data);
     // constant time for insertions at the beginning
     if (at === 0) {
-      newNode.addNode(this.firstNode)
+      newNode.addNextNode(this.firstNode)
       this.firstNode = newNode;
       return;
     }
-    let currentNode: NextNodeType<T> = this.firstNode;
+    let currentNode: NodeType<T> = this.firstNode;
     let currentIndex = 0;
     // going through the linked list to reach position
     // right before the requested index
@@ -79,16 +79,21 @@ class LinkedList<T> {
 }
 class Node<T> {
   data: T
-  nextNode: NextNodeType<T>
+  nextNode: NodeType<T>
+  previousNode: NodeType<T>
   constructor(data: T) {
     this.data = data;
-    this.nextNode = null
+    this.nextNode = null;
+    this.previousNode = null;
   }
   get content(): T {
     return this.data;
   }
-  addNode(node: NextNodeType<T>) {
+  addNextNode(node: NodeType<T>) {
     this.nextNode = node
+  }
+  addPreviousNode(node: NodeType<T>) {
+    this.previousNode = node
   }
 }
 function main() {
@@ -100,7 +105,7 @@ function main() {
     if (idx === nodeArr.length - 1) {
       break;
     } 
-    node.addNode(nodeArr[idx + 1]);
+    node.addNextNode(nodeArr[idx + 1]);
   }
   let firstNode = nodeArr[0];
   let linkedList = new LinkedList(firstNode);
