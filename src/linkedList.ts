@@ -1,13 +1,18 @@
+export {LinkedList, Node};
 type NextNodeType<T> = Node<T> | null | undefined;
 
 class LinkedList<T> {
-  firstNode: Node<T> 
+  firstNode: NextNodeType<T>
   constructor(node: Node<T>) {
     this.firstNode = node
   }
   read(index: number): T | undefined {
     let currentNode: NextNodeType<T> = this.firstNode;
     let currentIndex = 0;
+    // this is how a typical iteration through all nodes will look like.
+    // we keep track of two things:
+    // - The current node, which is updated in each loop.
+    // - the index, which is incremented.
     while (currentIndex < index) {
       if (currentNode == null) {
         break;
@@ -53,6 +58,24 @@ class LinkedList<T> {
     }
     currentNode.nextNode = newNode;
   }
+  deleteNode(at: number) {
+    if (at === 0) {
+      this.firstNode = this.firstNode?.nextNode;
+      return;
+    }
+    let currentNode = this.firstNode;
+    let currentIndex = 0;
+    while (currentIndex< (at -1)) {
+      currentNode = currentNode?.nextNode;
+      currentIndex++;
+    }
+    if (currentNode==null) {
+      return;
+    } 
+    // a little weird? but nonetheless works.
+    currentNode.nextNode = currentNode?.nextNode?.nextNode;
+    return;
+  }
 }
 class Node<T> {
   data: T
@@ -64,7 +87,7 @@ class Node<T> {
   get content(): T {
     return this.data;
   }
-  addNode(node: Node<T>) {
+  addNode(node: NextNodeType<T>) {
     this.nextNode = node
   }
 }
@@ -87,5 +110,9 @@ function main() {
   for (let i = 0; i<5; i++) {
     console.log(linkedList.read(i));
   }
+  linkedList.deleteNode(3);
+  for (let i = 0; i<5; i++) {
+    console.log(linkedList.read(i));
+  }
 }
-main();
+main(); 
