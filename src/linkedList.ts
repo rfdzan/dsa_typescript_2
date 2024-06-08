@@ -1,4 +1,4 @@
-export {LinkedList, Node};
+export {LinkedList, Node, NodeType};
 type NodeType<T> = Node<T> | null | undefined;
 
 class LinkedList<T> {
