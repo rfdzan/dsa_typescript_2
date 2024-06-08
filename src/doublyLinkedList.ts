@@ -1,3 +1,4 @@
+export{DoublyLinkedList};
 import { Node, NodeType } from "./linkedList";
 /**Between linked list and doubly linked list, the only difference seems to be the insertion and deletion on doubly-linked list are constant time? reading and searching are both still O(N) and methods for both are interchangeable. */
 class DoublyLinkedList<T> {
@@ -82,4 +83,3 @@ function main() {
   console.log(doublyLinkedList.read(0));
   console.log(doublyLinkedList.read(1));
 }
-main();
