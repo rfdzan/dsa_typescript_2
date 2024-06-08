@@ -4,7 +4,6 @@ function selectionSort(arr: number[]) {
     // assume the starting point is always the smallest.
     let indexOfSmallestNumber = i;
     for (let j = i + 1; j < arr.length; j++) {
-      // this loop runs forever
       if (arr[j] < arr[indexOfSmallestNumber]) {
         indexOfSmallestNumber = j;
       }
