@@ -120,4 +120,3 @@ function main() {
     console.log(linkedList.read(i));
   }
 }
-main(); 
