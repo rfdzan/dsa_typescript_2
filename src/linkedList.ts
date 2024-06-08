@@ -2,9 +2,9 @@ export {LinkedList, Node, NodeType};
 type NodeType<T> = Node<T> | null | undefined;
 
 class LinkedList<T> {
-  firstNode: NodeType<T>
+  firstNode: NodeType<T>;
   constructor(node: Node<T>) {
-    this.firstNode = node
+    this.firstNode = node;
   }
   read(index: number): T | undefined {
     let currentNode: NodeType<T> = this.firstNode;
@@ -17,30 +17,30 @@ class LinkedList<T> {
       if (currentNode == null) {
         break;
       }
-      currentNode = currentNode?.nextNode 
+      currentNode = currentNode?.nextNode;
       currentIndex++;
     }
-    return currentNode?.content
+    return currentNode?.content;
   }
   indexOf(needle: T): number | null {
     let currentNode: NodeType<T> = this.firstNode;
     let currentIndex = 0;
     while (true) {
       if (currentNode?.content === needle) {
-        return currentIndex
+        return currentIndex;
       }
       if (currentNode == null) {
-        return null
-      } 
+        return null;
+      }
       currentNode = currentNode?.nextNode;
       currentIndex++;
     }
   }
   insertNode(at: number, data: T) {
-    let newNode = new Node(data);
+    const newNode = new Node(data);
     // constant time for insertions at the beginning
     if (at === 0) {
-      newNode.addNextNode(this.firstNode)
+      newNode.addNextNode(this.firstNode);
       this.firstNode = newNode;
       return;
     }
@@ -48,7 +48,7 @@ class LinkedList<T> {
     let currentIndex = 0;
     // going through the linked list to reach position
     // right before the requested index
-    while (currentIndex < (at - 1)) {
+    while (currentIndex < at - 1) {
       currentNode = currentNode?.nextNode;
       currentIndex++;
     }
@@ -65,22 +65,22 @@ class LinkedList<T> {
     }
     let currentNode = this.firstNode;
     let currentIndex = 0;
-    while (currentIndex< (at -1)) {
+    while (currentIndex < at - 1) {
       currentNode = currentNode?.nextNode;
       currentIndex++;
     }
-    if (currentNode==null) {
+    if (currentNode == null) {
       return;
-    } 
+    }
     // a little weird? but nonetheless works.
     currentNode.nextNode = currentNode?.nextNode?.nextNode;
     return;
   }
 }
 class Node<T> {
-  data: T
-  nextNode: NodeType<T>
-  previousNode: NodeType<T>
+  data: T;
+  nextNode: NodeType<T>;
+  previousNode: NodeType<T>;
   constructor(data: T) {
     this.data = data;
     this.nextNode = null;
@@ -90,33 +90,33 @@ class Node<T> {
     return this.data;
   }
   addNextNode(node: NodeType<T>) {
-    this.nextNode = node
+    this.nextNode = node;
   }
   addPreviousNode(node: NodeType<T>) {
-    this.previousNode = node
+    this.previousNode = node;
   }
 }
 function main() {
-  let stringArr = ["once", "upon", "a", "time"];
-  let nodeArr: Node<string>[] = [];
-  stringArr.forEach((str) => nodeArr.push(new Node(str)));
+  const stringArr = ['once', 'upon', 'a', 'time'];
+  const nodeArr: Node<string>[] = [];
+  stringArr.forEach(str => nodeArr.push(new Node(str)));
   // this for block mutates members of nodeArr
   for (const [idx, node] of nodeArr.entries()) {
     if (idx === nodeArr.length - 1) {
       break;
-    } 
+    }
     node.addNextNode(nodeArr[idx + 1]);
   }
-  let firstNode = nodeArr[0];
-  let linkedList = new LinkedList(firstNode);
+  const firstNode = nodeArr[0];
+  const linkedList = new LinkedList(firstNode);
   console.log(linkedList.read(3));
-  console.log(linkedList.indexOf("bob"));
-  linkedList.insertNode(3, "long");
-  for (let i = 0; i<5; i++) {
+  console.log(linkedList.indexOf('bob'));
+  linkedList.insertNode(3, 'long');
+  for (let i = 0; i < 5; i++) {
     console.log(linkedList.read(i));
   }
   linkedList.deleteNode(3);
-  for (let i = 0; i<5; i++) {
+  for (let i = 0; i < 5; i++) {
     console.log(linkedList.read(i));
   }
 }

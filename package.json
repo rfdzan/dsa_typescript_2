@@ -11,7 +11,7 @@
   "keywords": [],
   "scripts": {
     "test": "jest",
-    "lint": "gts lint",
+    "lint": "gts lint --fix",
     "clean": "gts clean",
     "compile": "tsc",
     "fix": "gts fix",
